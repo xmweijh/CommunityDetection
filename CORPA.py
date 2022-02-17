@@ -1,5 +1,6 @@
 import collections
 import random
+import time
 import numpy as np
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -139,10 +140,13 @@ def load_graph(path):
 if __name__ == '__main__':
     # G = nx.karate_club_graph()
     G = load_graph('data/dolphin.txt')
+    start_time = time.time()
     algorithm = COPRA(G, 20, 3)
 
     communities = algorithm.execute()
+    end_time = time.time()
     for i, community in enumerate(communities):
         print(i, community)
 
     print(cal_EQ(communities, G))
+    print(f'算法执行时间{end_time - start_time}')

@@ -29,7 +29,6 @@ def draw_spring(G, com):
 
 if __name__ == "__main__":
     G = nx.karate_club_graph()  # 空手道俱乐部
-
     # KL算法
     com = list(kernighan_lin_bisection(G))
     print('社区数量', len(com))

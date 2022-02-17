@@ -1,4 +1,5 @@
 import collections
+import time
 import random
 import numpy as np
 import networkx as nx
@@ -183,9 +184,12 @@ if __name__ == '__main__':
     # G = nx.karate_club_graph()
     # pos = nx.spring_layout(G)
     G = load_graph('data/dolphin.txt')
+    start_time = time.time()
     algorithm = SLPA(G, 20, 0.5)
     communities = algorithm.execute()
+    end_time = time.time()
     for i, community in enumerate(communities):
         print(i, community)
 
     print(cal_EQ(communities, G))
+    print(f'算法执行时间{end_time - start_time}')

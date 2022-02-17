@@ -1,5 +1,5 @@
 import collections
-
+import time
 import numpy as np
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -190,9 +190,12 @@ def setColor(G):
 
 # G = load_graph('data/club.txt')
 G = load_graph('data/dolphin.txt')
+start_time = time.time()
 p = get_percolated_cliques(G, 3)
+end_time = time.time()
 # print(cal_Q(p, G))
 print(cal_EQ(p, G))
 # add_group(p, G)
 # nx.draw(G, with_labels=True, node_color=setColor(G))
 # plt.show()
+print(f'算法执行时间{end_time - start_time}')

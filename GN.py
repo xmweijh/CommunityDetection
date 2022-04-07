@@ -140,7 +140,8 @@ def showCommunity(G, partition, pos):
 if __name__ == '__main__':
     # 加载数据集并可视化
     G = load_graph('data/club.txt')
-    # print(len(G.nodes(False)))
+    print(G.nodes(False))
+    print(G.nodes(True))
     # print(len(G.edges(None, False)))
     pos = nx.spring_layout(G)
     nx.draw(G, pos, with_labels=True, font_weight='bold')

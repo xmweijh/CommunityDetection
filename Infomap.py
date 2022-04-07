@@ -205,7 +205,7 @@ class Infomap:
 obj = Graph()
 # graph = nx.karate_club_graph()
 # graph = obj.createGraph("data//google.txt")
-graph = obj.createGraph("Data//OpenFlights.txt")
+graph = obj.createGraph("data//OpenFlights.txt")
 # results.write("Network info:")
 # results.write("\n")
 # results.write("Nodes:{}, Edges:{}, Self loops:{}".format(graph.number_of_nodes(), graph.number_of_edges(), graph.number_of_selfloops()))

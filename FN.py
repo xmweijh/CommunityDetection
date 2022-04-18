@@ -49,14 +49,17 @@ class FastNewman:
     def merge_community(self, iter_num, detaQ, e, b):
         (I, J) = np.where(detaQ == np.amax(detaQ))
         # 由于先遍历的I I中可能有多个相同值  所以合并时候因应该将J合并到I中
-        # 如国将I合并到J中 后续删除删不到
+        # 如果将I合并到J中 后续删除删不到
+
         for m in range(len(I)):
-            # 将第J合并到I 然后将J清零
-            e[I[m], :] = e[J[m], :] + e[I[m], :]
-            e[J[m], :] = 0
-            e[:, I[m]] = e[:, J[m]] + e[:, I[m]]
-            e[:, J[m]] = 0
-            b[I[m]] = b[I[m]] + b[J[m]]
+            # 确保J还未被合并
+            if list(J).index(J[m]) == m:
+                # 将第J合并到I 然后将J清零
+                e[I[m], :] = e[J[m], :] + e[I[m], :]
+                e[J[m], :] = 0
+                e[:, I[m]] = e[:, J[m]] + e[:, I[m]]
+                e[:, J[m]] = 0
+                b[I[m]] = b[I[m]] + b[J[m]]
 
         e = np.delete(e, J, axis=0)
         e = np.delete(e, J, axis=1)

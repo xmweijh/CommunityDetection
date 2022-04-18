@@ -48,18 +48,21 @@ class FastNewman:
 
     def merge_community(self, iter_num, detaQ, e, b):
         (I, J) = np.where(detaQ == np.amax(detaQ))
+        # 由于先遍历的I I中可能有多个相同值  所以合并时候因应该将J合并到I中
+        # 如国将I合并到J中 后续删除删不到
         for m in range(len(I)):
-            e[J[m], :] = e[I[m], :] + e[J[m], :]
-            e[I[m], :] = 0
-            e[:, J[m]] = e[:, I[m]] + e[:, J[m]]
-            e[:, I[m]] = 0
-            b[J[m]] = b[J[m]] + b[I[m]]
+            # 将第J合并到I 然后将J清零
+            e[I[m], :] = e[J[m], :] + e[I[m], :]
+            e[J[m], :] = 0
+            e[:, I[m]] = e[:, J[m]] + e[:, I[m]]
+            e[:, J[m]] = 0
+            b[I[m]] = b[I[m]] + b[J[m]]
 
-        e = np.delete(e, I, axis=0)
-        e = np.delete(e, I, axis=1)
-        I = sorted(list(set(I)), reverse=True)
-        for i in I:
-            b.remove(b[i])  # 删除第I组社团，（都合并到J组中了）
+        e = np.delete(e, J, axis=0)
+        e = np.delete(e, J, axis=1)
+        J = sorted(list(set(J)), reverse=True)
+        for j in J:
+            b.remove(b[j])  # 删除第J组社团，（都合并到I组中了）
         self.c[iter_num] = b.copy()
         return e, b
 
@@ -174,9 +177,10 @@ if __name__ == "__main__":
     start_time = time.time()
     Q, community = FastNewman('data/club.txt').Run_FN()
     print(Q)
+    print(community)
     end_time = time.time()
     print(f'算法执行时间{end_time - start_time}')
-    end_time = time.time()
-    G = load_graph('data/club.txt')
-    pos = nx.spring_layout(G)
-    showCommunity(G, community, pos)
+    # end_time = time.time()
+    # G = load_graph('data/club.txt')
+    # pos = nx.spring_layout(G)
+    # showCommunity(G, community, pos)

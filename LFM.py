@@ -184,8 +184,10 @@ def load_graph(path):
 
 
 if __name__ == "__main__":
+    seed = 1024
+    random.seed(seed)  # python的随机性
     # G = nx.karate_club_graph()
-    G = load_graph('data/dolphin.txt')
+    G = load_graph('data/football.txt')
     pos = nx.spring_layout(G)
     nx.draw(G, pos, with_labels=True, font_weight='bold')
     plt.show()

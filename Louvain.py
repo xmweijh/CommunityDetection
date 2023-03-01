@@ -245,10 +245,10 @@ def cal_Q(partition, G):  # 计算Q
     return q
 
 class Graph:
-    graph = nx.DiGraph()
+    # graph = nx.DiGraph()
 
     def __init__(self):
-        self.graph = nx.DiGraph()
+        self.graph = nx.Graph()
 
     def createGraph(self, filename):
         file = open(filename, 'r')
@@ -262,12 +262,12 @@ class Graph:
 
 
 if __name__ == '__main__':
-    # G = load_graph('data/club.txt')
-    G = load_graph('data/OpenFlights.txt')
+    G = load_graph('data/club.txt')
+    # G = load_graph('data/dummy.txt')
     obj = Graph()
-    G1 = obj.createGraph("Data//OpenFlights.txt")
+    G1 = obj.createGraph("data/club.txt")
     # G1 = nx.karate_club_graph()
-    # pos = nx.spring_layout(G1)
+    pos = nx.spring_layout(G1)
     start_time = time.time()
     algorithm = Louvain(G)
     communities = algorithm.execute()
@@ -282,4 +282,4 @@ if __name__ == '__main__':
     print(cal_Q(communities, G1))
     print(f'算法执行时间{end_time - start_time}')
     # 可视化结果
-    # showCommunity(G1, communities, pos)
+    showCommunity(G1, communities, pos)

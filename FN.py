@@ -203,12 +203,12 @@ def showCommunity(G, partition, pos):
 
 if __name__ == "__main__":
     start_time = time.time()
-    Q, community = FastNewman('data/football.txt').Run_FN()
+    Q, community = FastNewman('data/club.txt').Run_FN()
     print(Q)
     print(community)
     end_time = time.time()
     print(f'算法执行时间{end_time - start_time}')
     # end_time = time.time()
-    # G = load_graph('data/club.txt')
-    # pos = nx.spring_layout(G)
-    # showCommunity(G, community, pos)
+    G = load_graph('data/club.txt')
+    pos = nx.spring_layout(G)
+    showCommunity(G, community, pos)
